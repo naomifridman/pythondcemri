@@ -29,10 +29,10 @@ def status_check(k, N, tstart, nupdates=10):
         telapsed = time.time() - tstart
         ttotal = telapsed * 100.0 / pct_complete
         trem = ttotal - telapsed
-        print '%.0f%% complete, %d of %d s remain' % \
-            (pct_complete, trem, ttotal)
+        print ('%.0f%% complete, %d of %d s remain' % \
+            (pct_complete, trem, ttotal))
     if k == N - 1:
-        print '%d s elapsed' % (time.time() - tstart) 
+        print ('%d s elapsed' % (time.time() - tstart) )
 
 
 
@@ -69,8 +69,8 @@ def mosaic(img):
     m = [x for x in xrange(1, n+1) if nz % x == 0]
     m = m[-1]
     j = nz / m      # figure out the most square dimensions
-    n2 = min(j, m)
-    n1 = max(j, m)
+    n2 = int(min(j, m))
+    n1 = int(max(j, m))
     M = zeros((nr*n2, nc*n1), dtype=img.dtype)
     for j2 in range(n2):      # stick them together
         for j1 in range(n1):  # there is probably a better way to do this
