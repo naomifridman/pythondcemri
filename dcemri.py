@@ -19,7 +19,7 @@
 # 
 
 import time
-from pylab import *
+#from pylab import *
 from scipy.integrate import cumtrapz, simps
 from scipy.optimize import curve_fit
 
@@ -31,17 +31,17 @@ def status_check(k, N, tstart, nupdates=10):
         telapsed = time.time() - tstart
         ttotal = telapsed * 100.0 / pct_complete
         trem = ttotal - telapsed
-        print '%.0f%% complete, %d of %d s remain' % \
-            (pct_complete, trem, ttotal)
+        print( '%.0f%% complete, %d of %d s remain' % \
+            (pct_complete, trem, ttotal))
     if k == N - 1:
-        print '%d s elapsed' % (time.time() - tstart) 
+        print ('%d s elapsed' % (time.time() - tstart) )
 
 
 def signal_to_noise_ratio(im1, im2, mask=None, thresh=None):
     ''' Compute SNR of two images (see Dietrich et al. 2007, 
         JMRI, 26, 375) '''
-    print 'computing signal-to-noise ratio'
-    from skimage.filter import threshold_otsu 
+    print ('computing signal-to-noise ratio')
+    from skimage.filters import threshold_otsu 
     if mask is None:
         if thresh is None:
             thresh = threshold_otsu(im1)
@@ -52,7 +52,7 @@ def signal_to_noise_ratio(im1, im2, mask=None, thresh=None):
 
 def signal_enhancement_ratio(data, thresh=0.01):
     ''' Compute max signal enhancement ratio for dynamic data '''
-    print 'computing signal enhancement ratios'
+    print ('computing signal enhancement ratios')
     assert(thresh > 0.0)
     ndyn = data.shape[-1]
     image_shape = data.shape[:-1]
@@ -157,7 +157,7 @@ def fit_tofts_model(Ct, Cp, t, idxs=None, extended=False,
 
     # choose model and initialize fit parameters with reasonable values
     if extended:  # add vp if using Extended Tofts
-        print 'using Extended Tofts-Kety'
+        print ('using Extended Tofts-Kety')
         fit_func = lambda t, Kt, ve, vp: \
                     ext_tofts_integral(t, Cp, Kt=Kt, ve=ve, vp=vp)
         coef0 = [0.01, 0.01, 0.01]
@@ -172,7 +172,7 @@ def fit_tofts_model(Ct, Cp, t, idxs=None, extended=False,
         popt_default = [-1,-1]
         pcov_default = ones((2,2))
 
-    print 'fitting %d voxels' % len(idxs)
+    print ('fitting %d voxels' % len(idxs))
     tstart = time.time()
     for k, idx in enumerate(idxs):
         try:
